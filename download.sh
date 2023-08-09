@@ -49,7 +49,9 @@ do
 
     for s in $(seq -f "0%g" 0 ${SHARD})
     do
-        wget ${PRESIGNED_URL/'*'/"${MODEL_PATH}/consolidated.${s}.pth"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/consolidated.${s}.pth"
+        if [ ! -f ${TARGET_FOLDER}"/${MODEL_PATH}/consolidated.${s}.pth" ]; then
+            wget ${PRESIGNED_URL/'*'/"${MODEL_PATH}/consolidated.${s}.pth"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/consolidated.${s}.pth"
+        fi
     done
 
     wget ${PRESIGNED_URL/'*'/"${MODEL_PATH}/params.json"} -O ${TARGET_FOLDER}"/${MODEL_PATH}/params.json"
